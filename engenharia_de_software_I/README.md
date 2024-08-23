@@ -42,8 +42,9 @@ Windows, sendo popular, é um alvo maior para malwares, mas é familiar para a m
 
 
 # Classes Filme e BibliotecaFilmes
+![UML](/BibliotecaFilmes.png)
 ## classe: Filme
-### Atributos:
+<!-- ### Atributos:
  - \- nome: String
  - \- ano: int
  - \- diretor: String
@@ -53,9 +54,9 @@ Windows, sendo popular, é um alvo maior para malwares, mas é familiar para a m
  - \+ getDiretor(): String
  - \+ setNome(String)
  - \+ setAno(int)
- - \+ setDiretor(String)
+ - \+ setDiretor(String) -->
 
-```
+```java
     public class Filme{
         private String nome;
         private int ano;
@@ -87,7 +88,7 @@ Windows, sendo popular, é um alvo maior para malwares, mas é familiar para a m
     }
 ```
 ## classe: BibliotecaFilmes
-### atributos:
+<!-- ### atributos:
  - \- Filmes: List
 ### métodos:
  - \+ adicionarFilme(Filme)
@@ -96,9 +97,9 @@ Windows, sendo popular, é um alvo maior para malwares, mas é familiar para a m
  - \+ getFilmesPorNome(String): List
  - \+ getFilmesPorAno(int): List
  - \+ getFilmesPorDiretor(String): List
- - \+ getFilme(String, String, int): Filme
+ - \+ getFilme(String, String, int): Filme -->
 
-```
+```java
 import java.util.LinkedList;
 import java.util.List;
 

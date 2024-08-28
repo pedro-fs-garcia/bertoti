@@ -37,7 +37,50 @@ Windows é um sistema pago, com suporte comercial robusto e atualizações autom
 Windows, sendo popular, é um alvo maior para malwares, mas é familiar para a maioria dos usuários. Linux é mais seguro e menos vulnerável a ataques, mas pode exigir adaptação para usuários que vêm de Windows.
 
 
-# Comparação entre arquiteturas: Youtube vs Netflix
+# Tradeoffs de arquitetura: Telegram
+O Telegram, uma das plataformas de mensagens mais populares globalmente, utiliza uma arquitetura de software sofisticada que suporta milhões de usuários simultâneos, oferecendo rapidez, segurança e escalabilidade. Abaixo, está uma descrição da arquitetura de software do Telegram e uma análise dos trade-offs associados.
+<img src="high_level_system_architecture_diagram.png" alt="">
+## Arquitetura Distribuída com Servidores de Camada Múltipla:
+- Servidores de Front-End (DCs - Data Centers): O Telegram utiliza uma arquitetura distribuída, onde os servidores de front-end são responsáveis por lidar com conexões de clientes e servir como intermediários para o roteamento de mensagens.
+- Servidores de Back-End: Estes são usados para processamento e armazenamento de dados. Eles gerenciam a lógica de negócios, autenticação de usuários, e execução de comandos dos bots.
+- Canais de Comunicação Segura: Os servidores do Telegram utilizam MTProto (Mobile Telegram Protocol), que é uma combinação de criptografia de ponta a ponta e criptografia cliente-servidor para proteger as comunicações.
+## Camadas de Serviço:
+- Camada de Aplicação: Inclui a interface do usuário (clientes do Telegram em Android, iOS, desktop, web) e a lógica da aplicação.
+- Camada de Serviço: Implementa lógica de negócios e processamento de mensagens, incluindo APIs REST e a camada de bot do Telegram.
+- Camada de Dados: Responsável pelo armazenamento de mensagens, arquivos, configurações de usuários, e outros metadados, geralmente usando bancos de dados distribuídos e escaláveis.
+## MTProto - Protocolo de Comunicação:
+- Segurança e Velocidade: MTProto é projetado para fornecer alta segurança e desempenho rápido, especialmente em redes móveis de baixa qualidade. Ele combina criptografia simétrica (AES) e assimétrica (RSA) para autenticar conexões e criptografar dados.
+- Compressão: Os dados são comprimidos antes de serem enviados para melhorar a velocidade de transmissão.
+## Armazenamento Distribuído e Cloud:
+- Armazenamento na Nuvem: As mensagens e arquivos dos usuários são armazenados na nuvem do Telegram, permitindo o acesso de múltiplos dispositivos e garantindo backup e recuperação de dados.
+- Sharding: Para gerenciar o grande volume de dados e manter o desempenho, o Telegram utiliza sharding, dividindo o armazenamento entre diferentes servidores e locais geográficos.
+## Arquitetura Orientada a Eventos:
+- Eventos Assíncronos: A arquitetura do Telegram é orientada a eventos, o que significa que as ações dos usuários e eventos do sistema são processados de maneira assíncrona para maximizar a eficiência e capacidade de resposta.
+
+## Trade-offs da Arquitetura do Telegram
+### Escalabilidade vs. Complexidade:
+- Escalabilidade: A arquitetura distribuída permite que o Telegram escale horizontalmente para suportar milhões de usuários simultaneamente. O uso de sharding e servidores distribuídos evita sobrecargas em servidores específicos.
+- Complexidade: Manter uma infraestrutura distribuída e garantir a consistência de dados em múltiplos data centers é complexo. Requer monitoramento constante, balanceamento de carga e políticas de failover para garantir disponibilidade e integridade.
+
+### Segurança vs. Desempenho:
+<img src="encryption.png" alt="">
+- Segurança: O uso do protocolo MTProto e criptografia ponta a ponta garante que as comunicações sejam seguras e resistentes a interceptações. Isso é crítico para proteger a privacidade dos usuários.
+- Desempenho: Embora a segurança seja uma prioridade, o MTProto é projetado para ser leve e rápido. No entanto, há um trade-off entre a complexidade da criptografia e a latência, especialmente em redes de baixa qualidade.
+
+### Armazenamento em Nuvem vs. Privacidade do Usuário:
+- Armazenamento na Nuvem: Oferece conveniência aos usuários, permitindo sincronização entre dispositivos e backup fácil. Também melhora a resiliência do serviço.
+- Privacidade do Usuário: Apesar de criptografar os dados, o fato de os dados serem armazenados nos servidores do Telegram levanta preocupações sobre privacidade e controle de dados. Usuários precisam confiar que o Telegram manterá seus dados seguros e não os acessará sem autorização.
+
+### Desempenho vs. Custos Operacionais:
+- Desempenho: Para garantir uma experiência rápida e responsiva, o Telegram investe em infraestrutura robusta e geograficamente distribuída, garantindo baixa latência.
+- Custos Operacionais: Manter uma infraestrutura global, com servidores de alta capacidade e tecnologia de ponta, implica em custos operacionais elevados. Isso é especialmente relevante para o Telegram, que se orgulha de não depender de anúncios para financiar suas operações.
+
+### Orientação a Eventos vs. Debugging e Monitoramento:
+- Orientação a Eventos: Torna o sistema mais responsivo e eficiente, pois processa eventos de forma assíncrona.
+- Debugging e Monitoramento: A arquitetura orientada a eventos pode tornar o rastreamento de bugs mais complexo, já que o fluxo de execução não é linear. Requer ferramentas avançadas de monitoramento e logging para rastrear problemas.
+
+### Considerações Finais
+A arquitetura de software do Telegram foi cuidadosamente projetada para suportar um grande número de usuários simultâneos, fornecer uma experiência de usuário rápida e responsiva, e garantir a segurança das comunicações. No entanto, a escolha dessa arquitetura envolve trade-offs significativos, especialmente em termos de complexidade, custos operacionais e considerações de privacidade. Para qualquer empresa considerando uma arquitetura semelhante, é fundamental pesar esses fatores com base nos objetivos de negócios e nas expectativas dos usuários.
 
 
 

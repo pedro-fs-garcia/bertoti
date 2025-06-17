@@ -1,0 +1,7 @@
+__pycache__/
+venv/
+.env
+
+mistral-7b-instruct/
+Qwen2.5-3B-Instruct/
+teste.py

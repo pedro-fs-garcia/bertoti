@@ -1,0 +1,1 @@
+![uml](antipattern_strategy.png)

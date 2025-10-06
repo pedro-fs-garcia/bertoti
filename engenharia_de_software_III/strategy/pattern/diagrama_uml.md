@@ -1,0 +1,1 @@
+![uml](pattern_strategy.png)
